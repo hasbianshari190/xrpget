@@ -15,34 +15,25 @@ jobs:
       - name: checkout repo content
         uses: actions/checkout@v2 # checkout the repository content to github runner
 
-      - name: Stop Previous Runs
-        uses: fkirc/stop-previous-runs@v2
-        env:
-          GH_TOKEN: ${{ secrets.XRP_SECRET }}
-        run: |
-          RUNNING_JOBS=$(gh run list --workflow=action.yml --json databaseId,status | jq -r '.[] | select(.status=="in_progress") | .databaseId')
-          for JOB_ID in $RUNNING_JOBS; do
-            gh run cancel $JOB_ID
-          done
-
       - name: setup python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.x' # install the python version needed
           
       - name: install python packages
-        uses: actions/setup-python@v2
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install rich
 
-      - name: Setup GitHub CLI
-        uses: actions/setup-python@v2
-        run: |
-          gh auth status || exit 1
+      - name: Stop Previous Runs
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          RUNNING_JOBS=$(gh run list --workflow=daily-action.yml --json databaseId,status | jq -r '.[] | select(.status=="in_progress") | .databaseId')
+          for JOB_ID in $RUNNING_JOBS; do
+            gh run cancel $JOB_ID
+          done
 
       - name: execute py script # run main.py
         env:
