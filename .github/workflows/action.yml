@@ -28,5 +28,5 @@ jobs:
           
       - name: execute py script # run main.py
         env:
-          SOME_SECRET: ${{ secrets.SOME_SECRET }}
+          XRP_SECRET: ${{ secrets.XRP_SECRET }}
         run: python Run.py

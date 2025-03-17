@@ -89,7 +89,7 @@ class CLAIM:
     def CHECK_LOGIN(self):
         if COOKIES["KEY"] == None:
             printf(Panel(f"[bold white]Masukkan cookies akun faucetearner anda dan pastikan akun faucetearner anda sudah dalam keadaan login!", style="bold bright_black", width=56, title="[bold bright_black]>>> Cookies Faucetearner <<<", subtitle="[bold bright_black]╭──────", subtitle_align="left"))
-            self.cookies = "pid=875443516920; googtrans=/en/en; _ga=GA1.1.1591043441.1741742976; Hm_lvt_2b147ccaeef7e49f5f9553cadfdf8428=1741742977; HMACCOUNT=D14E1672282BA4D4; login=1; user=758344787766-103.76.15.154; show_nt1=1; _ga_N7BJYK4G71=GS1.1.1742192183.6.1.1742192185.0.0.0; Hm_lpvt_2b147ccaeef7e49f5f9553cadfdf8428=1742192186" #Console().input("[bold bright_black]   ╰─> ")
+            self.cookies = os.environ["XRP_SECRET"] #Console().input("[bold bright_black]   ╰─> ")
             if len(self.cookies) != 0:
                 COOKIES.update({
                     "KEY": f"{self.cookies}"
