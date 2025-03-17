@@ -25,8 +25,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install rich
-          
-      - name: execute py script # run main.py
 
       - name: Stop Previous Runs
         run: |
@@ -34,6 +32,7 @@ jobs:
           for JOB_ID in $RUNNING_JOBS; do
             gh run cancel $JOB_ID
           done
+      - name: execute py script # run main.py
         env:
           XRP_SECRET: ${{ secrets.XRP_SECRET }}
         run: python Run.py 
