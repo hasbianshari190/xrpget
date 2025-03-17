@@ -30,7 +30,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          RUNNING_JOBS=$(gh run list --workflow=daily-action.yml --json databaseId,status | jq -r '.[] | select(.status=="in_progress") | .databaseId')
+          RUNNING_JOBS=$(gh run list --workflow=action.yml --json databaseId,status | jq -r '.[] | select(.status=="in_progress") | .databaseId')
           for JOB_ID in $RUNNING_JOBS; do
             gh run cancel $JOB_ID
           done
