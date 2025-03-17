@@ -32,7 +32,8 @@ jobs:
           for JOB_ID in $RUNNING_JOBS; do
             gh run cancel $JOB_ID
           done
-      - name: execute py script # run main.py
         env:
           XRP_SECRET: ${{ secrets.XRP_SECRET }}
+          
+      - name: execute py script # run main.py
         run: python Run.py 
