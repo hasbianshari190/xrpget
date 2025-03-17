@@ -4,10 +4,12 @@ on:
   schedule:
     - cron: "* * * * *"  # Jalankan setiap 1 Menit (sesuaikan dengan kebutuhan)
   workflow_dispatch:  # Bisa dijalankan manual dari GitHub Actions
+
 #on:
   #push:
     #paths:
       #- '.github/workflows/action.yml'
+
 jobs:
   run-script:
     runs-on: ubuntu-latest
@@ -15,7 +17,7 @@ jobs:
       - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.12.1
         with:
-          access_token: ${{ github.GH_TOKEN }}
+          access_token: ${{ secrets.GH_TOKEN }}
 
       - name: checkout repo content
         uses: actions/checkout@v2 # checkout the repository content to github runner
