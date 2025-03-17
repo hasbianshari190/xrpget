@@ -2,7 +2,7 @@ name: run Run.py
 
 on:
   schedule:
-    - cron: "0 * * * *"  # Jalankan setiap jam (sesuaikan dengan kebutuhan)
+    - cron: "* * * * *"  # Jalankan setiap 1 Menit (sesuaikan dengan kebutuhan)
   workflow_dispatch:  # Bisa dijalankan manual dari GitHub Actions
 
 jobs:
