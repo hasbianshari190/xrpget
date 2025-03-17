@@ -1,15 +1,15 @@
 name: run On Time Run.py
 
-#on:
-  #schedule:
-    #- cron: "* * * * *"  # Jalankan setiap 1 Menit (sesuaikan dengan kebutuhan)
-  #workflow_dispatch:  # Bisa dijalankan manual dari GitHub Actions
 on:
-  push:
-    paths:
-      - '.github/workflows/action.yml'
+  schedule:
+    - cron: "0 0 * * *"  # Jalankan setiap 1 Menit (sesuaikan dengan kebutuhan)
+  workflow_dispatch:  # Bisa dijalankan manual dari GitHub Actions
+#on:
+  #push:
+    #paths:
+      #- '.github/workflows/action.yml'
 jobs:
-  run-once:
+  run-script:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo content
@@ -27,6 +27,13 @@ jobs:
           pip install rich
           
       - name: execute py script # run main.py
+
+      - name: Stop Previous Runs
+        run: |
+          RUNNING_JOBS=$(gh run list --workflow=daily-action.yml --json databaseId,status | jq -r '.[] | select(.status=="in_progress") | .databaseId')
+          for JOB_ID in $RUNNING_JOBS; do
+            gh run cancel $JOB_ID
+          done
         env:
           XRP_SECRET: ${{ secrets.XRP_SECRET }}
         run: python Run.py 
