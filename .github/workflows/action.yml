@@ -1,0 +1,27 @@
+name: run Run.py
+
+on:
+  schedule:
+    - cron: "0 * * * *"  # Jalankan setiap jam (sesuaikan dengan kebutuhan)
+  workflow_dispatch:  # Bisa dijalankan manual dari GitHub Actions
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.x"
+
+      - name: Install Dependencies
+        run: pip install requests rich
+
+      - name: Run Script
+        env:
+          COOKIE_KEY: ${{ secrets.COOKIE_KEY }}  # Ambil cookie dari GitHub Secrets
+        run: |
+          python Run.py
