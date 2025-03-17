@@ -1,12 +1,15 @@
-name: run Run.py
+name: run On Time Run.py
 
+#on:
+  #schedule:
+    #- cron: "* * * * *"  # Jalankan setiap 1 Menit (sesuaikan dengan kebutuhan)
+  #workflow_dispatch:  # Bisa dijalankan manual dari GitHub Actions
 on:
-  schedule:
-    - cron: "* * * * *"  # Jalankan setiap 1 Menit (sesuaikan dengan kebutuhan)
-  workflow_dispatch:  # Bisa dijalankan manual dari GitHub Actions
-
+  push:
+    paths:
+      - '.github/workflows/action.yml'
 jobs:
-  run-script:
+  run-once:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo content
