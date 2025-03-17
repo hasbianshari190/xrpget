@@ -9,19 +9,20 @@ jobs:
   run-script:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+      - name: checkout repo content
+        uses: actions/checkout@v2 # checkout the repository content to github runner
 
-      - name: Setup Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: "3.x"
-
-      - name: Install Dependencies
-        run: pip install requests rich
-
-      - name: Run Script
-        env:
-          COOKIE_KEY: ${{ secrets.COOKIE_KEY }}  # Ambil cookie dari GitHub Secrets
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:  
+          python-version: '3.9' # install the python version needed
+          
+      - name: install python packages
         run: |
-          python Run.py
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: execute py script # run main.py
+        env:
+          SOME_SECRET: ${{ secrets.SOME_SECRET }}
+        run: python main.py
