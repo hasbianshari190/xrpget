@@ -12,6 +12,11 @@ jobs:
   run-script:
     runs-on: ubuntu-latest
     steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.12.1
+        with:
+          access_token: ${{ github.GH_TOKEN }}
+
       - name: checkout repo content
         uses: actions/checkout@v2 # checkout the repository content to github runner
 
@@ -25,15 +30,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install rich
-
-      - name: Stop Previous Runs
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          RUNNING_JOBS=$(gh run list --workflow=daily-action.yml --json databaseId,status | jq -r '.[] | select(.status=="in_progress") | .databaseId')
-          for JOB_ID in $RUNNING_JOBS; do
-            gh run cancel $JOB_ID
-          done
 
       - name: execute py script # run main.py
         env:
