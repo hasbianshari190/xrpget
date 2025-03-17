@@ -33,7 +33,7 @@ jobs:
             gh run cancel $JOB_ID
           done
         env:
-          XRP_SECRET: ${{ secrets.XRP_SECRET }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: execute py script # run main.py
         env:
