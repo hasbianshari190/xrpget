@@ -1,14 +1,14 @@
 name: run On Time Run.py
 
-#on:
-  #schedule:
-    #- cron: "* * * * *"  # Jalankan setiap 1 Menit (sesuaikan dengan kebutuhan)
-  #workflow_dispatch:  # Bisa dijalankan manual dari GitHub Actions
-  
 on:
-  push:
-    paths:
-      - '.github/workflows/action.yml'
+  schedule:
+    - cron: "0 */6 * * *"  # Jalankan setiap 1 Menit (sesuaikan dengan kebutuhan)
+  workflow_dispatch:  # Bisa dijalankan manual dari GitHub Actions
+  
+#on:
+  #push:
+    #paths:
+      #- '.github/workflows/action.yml'
 
 jobs:
   run-once:
