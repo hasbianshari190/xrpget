@@ -2,7 +2,7 @@ name: run On Time Run.py
 
 on:
   schedule:
-    - cron: "0 */6 * * *"  # Jalankan setiap 1 Menit (sesuaikan dengan kebutuhan)
+    - cron: "0 */5 * * *"  # Jalankan setiap 1 Menit (sesuaikan dengan kebutuhan)
   workflow_dispatch:  # Bisa dijalankan manual dari GitHub Actions
   
 #on:
